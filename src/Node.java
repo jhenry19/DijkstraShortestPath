@@ -31,19 +31,21 @@ public class Node implements Cloneable{
 
 	String tracePath(Node n) {
 		if (n.index == 1) {
-			return "S";
+			return "1";
 		}
 		else {
-			if(n.index == 0) return tracePath(n.shortestPathPredecessor) + "-" + "T";
-			else return tracePath(n.shortestPathPredecessor) + "-" + this;
+			return tracePath(n.shortestPathPredecessor) + "-" + n.index;
 		}
 
 	}
 
 	@Override
 	public String toString() {
-		if (index == 0) return "Node T included in S. Distance: " + distance + ". Shortest path: " + tracePath(this);
-		else return "Node " + index + " included in S. Distance: " + distance + ". Shortest path: " + tracePath(this);
+		String toReturn = "Node " + index + " included in S. Distance: " + distance + ". Shortest path: " + tracePath(this);
+		toReturn = toReturn.replace('0','T');
+		toReturn = toReturn.replace('1','S');
+
+		return toReturn;
 
 	}
 }

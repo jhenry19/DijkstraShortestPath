@@ -4,7 +4,6 @@ public class Dijkstra {
     // Using https://docs.oracle.com/javase/7/docs/api/java/util/PriorityQueue.html
     // This priority queue represents Q in the algorithm and prioritizes nodes based on their lowest adjacent edge
     PriorityQueue<Node> nodesToDiscover = new PriorityQueue<Node>(new DistanceComparator());
-    ArrayList<Node> addedNodes = new ArrayList<Node>();
     ArrayList<Node> knownNodes = new ArrayList<Node>();
     ArrayList<Node> unknownNodes = new ArrayList<Node>();
 
@@ -76,7 +75,6 @@ public class Dijkstra {
 
     void changeKey(PriorityQueue<Node> Q, Node w, int distance) {
         nodesToDiscover.add(w);
-        addedNodes.add(w);
     }
 
 
