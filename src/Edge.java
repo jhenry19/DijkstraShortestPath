@@ -1,3 +1,6 @@
+/**
+ * Edges connect a source and destination node with a weight
+ */
 public class Edge {
     int weight;
     Node source;

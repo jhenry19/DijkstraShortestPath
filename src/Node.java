@@ -1,39 +1,26 @@
 import java.util.ArrayList;
 
+/**
+ * Node class is an object used to hold information about each node in the graph
+ */
 public class Node implements Cloneable{
-	int index;
-	int distance = Integer.MAX_VALUE;
-	ArrayList<Edge> adjacentEdges = new ArrayList<Edge>();
-	// A placeholder edge not in the graph with an infinite weight. This will only be returned if the node had no adjacent edges
-	Edge lowestEdge;
-	Node shortestPathPredecessor;
+	int index; // a label used to identify each node
+	int distance = Integer.MAX_VALUE; // set as a high number for use in dijkstra's algorithm
+	ArrayList<Edge> adjacentEdges = new ArrayList<Edge>(); // all edges originating with this node
+	Node shortestPathPredecessor; // this nodes predecessor on the shortest path found to it
 
 	Node(int i) {
 		index = i;
 	}
 
-	void addAdjacentEdge(Edge e) {
-		adjacentEdges.add(e);
-		lowestEdge = getLowestAdjacentEdge();
-	}
-
-	Edge getLowestAdjacentEdge() {
-		int lowestWeight = Integer.MAX_VALUE;
-		Edge toReturn = lowestEdge;
-		for(int i = 0; i < adjacentEdges.size(); i++) {
-			if (adjacentEdges.get(i).weight < lowestWeight) {
-				toReturn = adjacentEdges.get(i);
-				lowestWeight = adjacentEdges.get(i).weight;
-			}
-		}
-		return toReturn;
-	}
-
+	/**
+	 * A recursive algorithm used in printing the shortest path to an algorithm once Dijkstra's has found it
+	 */
 	String tracePath(Node n) {
-		if (n.index == 1) {
+		if (n.index == 1) { // Base case of being node S
 			return "1";
 		}
-		else {
+		else { // Recursive case
 			return tracePath(n.shortestPathPredecessor) + "-" + n.index;
 		}
 

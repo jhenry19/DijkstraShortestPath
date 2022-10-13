@@ -14,13 +14,9 @@ public class Dijkstra {
      * Implementation of Dijkstra's shortest-path algorithm
      */
     void shortestPath(ArrayList<Node> graph, int startNodeIndex) {
-
-
-
         unknownNodes.addAll(graph); // used to know when to stop while loop
 
-
-
+        // Initialized start index values
         graph.get(startNodeIndex).distance = 0;
         changeKey(nodesToDiscover, graph.get(startNodeIndex), 0);
 
@@ -32,8 +28,8 @@ public class Dijkstra {
 
         while(!unknownNodes.isEmpty()) {
             currentNode = ExtractMin(nodesToDiscover);
-            knownNodes.add(currentNode); // known nodes are nodes for which the shortest path is know
-            unknownNodes.remove(currentNode);
+            knownNodes.add(currentNode);      // known nodes are nodes for which the shortest path is know
+            unknownNodes.remove(currentNode); // unknown nodes are nodes for which the shortest path is still yet to be determined
 
             System.out.println(currentNode);
 
@@ -59,11 +55,12 @@ public class Dijkstra {
     }
 
     /**
-     * Takes smallest value from priority queue
+     * Extract the minimum distance node connected to the known nodes
      */
     Node ExtractMin(PriorityQueue<Node> Q) {
         Node toReturn = null;
         boolean searchingForNode = true;
+        // A while loop is used so that a node that is known already isn't picked
         while (searchingForNode) {
             toReturn = Q.poll();
             if (!knownNodes.contains(toReturn)) {
@@ -73,11 +70,19 @@ public class Dijkstra {
         return toReturn;
     }
 
+    /**
+     * Adds the node to the priority queue. This is done indiscriminately, meaning any node is added to the
+     * the priority queue when a new shorter path is found. The priority queue only sorts when nodes are
+     * added to it so we can add to it as long as we are sure to stop when all nodes are found.
+     */
     void changeKey(PriorityQueue<Node> Q, Node w, int distance) {
         nodesToDiscover.add(w);
     }
 
 
+    /**
+     * Generates the graph used for this assignment
+     */
      void generateGraph(ArrayList<Node> graph) {
         // For the purposes of this list, node t is at index 0 and node s is at index 1
          Node t = new Node(0);
@@ -97,6 +102,7 @@ public class Dijkstra {
         graph.add(6, six); // Node T
         graph.add(7, seven); // Node T
 
+         // Add adjacent edges to the nodes
          s.addAdjacentEdge(new Edge(s,two,9));
          s.addAdjacentEdge(new Edge(s,six,14));
          s.addAdjacentEdge(new Edge(s,seven,15));
